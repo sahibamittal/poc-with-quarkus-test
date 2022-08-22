@@ -1,3 +1,4 @@
+/*
 package org.acme.consumer;
 
 import io.smallrye.reactive.messaging.kafka.Record;
@@ -18,3 +19,4 @@ public class SnykConsumer {
         // set streams for all tasks
     }
 }
+*/
