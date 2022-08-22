@@ -1,3 +1,4 @@
+/*
 package org.acme;
 
 import io.smallrye.reactive.messaging.kafka.Record;
@@ -12,6 +13,7 @@ public class EventConsumer {
 
     @Incoming("event-in")
     public void receive(Record<Integer, EventData> event) {
-        logger.infof("Got an event for analysis : %s - %s", event.key(), event.value().toString());
+        logger.infof("Got an event for analysis : %s - %s", event.key(), event.value().getProject());
     }
 }
+*/
