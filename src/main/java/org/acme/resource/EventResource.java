@@ -1,6 +1,7 @@
-package org.acme;
+package org.acme.resource;
 
 import org.acme.model.EventData;
+import org.acme.producer.EventProducer;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
