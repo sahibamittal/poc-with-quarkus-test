@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.consumer;
 
 import io.smallrye.reactive.messaging.kafka.Record;
 import org.acme.model.EventData;
@@ -12,6 +12,8 @@ public class EventConsumer {
 
     @Incoming("event-in")
     public void receive(Record<Integer, EventData> event) {
-        logger.infof("Got an event for analysis : %s - %s", event.key(), event.value().toString());
+        logger.infof("Got an event for analysis : %s - %s", event.key(), event.value().getProject());
+        // do partition here on projects/components (partitionAmount) -> brokers
+        // and then all consumers will listen to all these partitions
     }
 }
