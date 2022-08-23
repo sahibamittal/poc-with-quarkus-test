@@ -31,20 +31,36 @@ public class StreamsConsumer {
         ObjectMapperSerde<EventData> eventDataSerde = new ObjectMapperSerde<>(
                 EventData.class);
         KStream<String, EventData> kStream = builder.stream("event", Consumed.with(Serdes.String(), eventDataSerde));
+        KStream<String, String> splittedStreams = kStream.flatMapValues(value->value.getComponents());
+
+
         kStream.foreach(new ForeachAction<String, EventData>() {
             @Override
             public void apply(String s, EventData eventData) {
                 System.out.println("First Consumer");
-                try {
+                /*try {
                     Thread.sleep(40000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }
+                }*/
                 System.out.println(eventData.getProject());
             }
         });
-        kStream.to("event-out", Produced.with(Serdes.String(), eventDataSerde));
+        splittedStreams.to("event-out", Produced.with(Serdes.String(), Serdes.String()));
 
+        KStream<String, String> streamRecv = builder.stream("event-out", Consumed.with(Serdes.String(), Serdes.String()));
+        streamRecv.foreach(new ForeachAction<String, String>() {
+            @Override
+            public void apply(String s, String component) {
+                System.out.println("First Consumer");
+                /*try {
+                    Thread.sleep(40000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }*/
+                System.out.println(component);
+            }
+        });
 
         return builder.build();
     }
