@@ -5,13 +5,14 @@ import io.smallrye.reactive.messaging.kafka.Record;
 import org.acme.model.EventData;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class EventProducer {
+public class  EventProducer {
 
     @Inject @Channel("event-out")
     Emitter<Record<Integer, EventData>> emitter;
@@ -19,4 +20,5 @@ public class EventProducer {
     public void sendEventToKafka(EventData eventData) {
         emitter.send(Record.of(eventData.eventType, eventData));
     }
+
 }

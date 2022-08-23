@@ -29,3 +29,16 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_NUM_PARTITIONS: 3
+  init-kafka:
+    image: strimzi/kafka:0.20.1-kafka-2.6.0
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      # blocks until kafka is reachable
+      bin/kafka-topics.sh --list
+
+      echo -e 'Creating kafka topics'
+      bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --if-not-exists --topic event-out --replication-factor 1 --partitions 3
+      "

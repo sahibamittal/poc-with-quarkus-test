@@ -28,3 +28,17 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  init-kafka:
+    image: strimzi/kafka:0.20.1-kafka-2.6.0
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      # blocks until kafka is reachable
+      bin/kafka-topics.sh --bootstrap-server kafka:29092 --list
+      
+      echo -e 'Creating kafka topics'
+      bin/kafka-topics.sh --bootstrap-server kafka:29092 --create --if-not-exists --topic event-out --replication-factor 1 --partitions 3
+      "
