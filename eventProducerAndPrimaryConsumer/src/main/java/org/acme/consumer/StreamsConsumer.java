@@ -26,8 +26,6 @@ public class StreamsConsumer {
 
 
         StreamsBuilder builder = new StreamsBuilder();
-        Properties config = new Properties();
-        config.setProperty(StreamsConfig.APPLICATION_ID_CONFIG, "producer");
         ObjectMapperSerde<EventData> eventDataSerde = new ObjectMapperSerde<>(
                 EventData.class);
 
@@ -50,20 +48,20 @@ public class StreamsConsumer {
         });
         splittedStreams.to("event-out", Produced.with(Serdes.String(), Serdes.String()));
 
-        //sending event out
+       /* //sending event out
         KStream<String, String> streamRecv = builder.stream("event-out", Consumed.with(Serdes.String(), Serdes.String()));
         streamRecv.foreach(new ForeachAction<String, String>() {
             @Override
             public void apply(String s, String component) {
                 System.out.println("Printing from event-out topic");
-                /*try {
+                *//*try {
                     Thread.sleep(40000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }*/
+                }*//*
                 System.out.println(component);
             }
-        });
+        });*/
 
         return builder.build();
     }
