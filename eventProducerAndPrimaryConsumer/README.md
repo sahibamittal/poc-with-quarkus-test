@@ -1,8 +1,6 @@
-# code-with-quarkus Project
+# Event Producer and Primary Consumer Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+This project is aimed at producing events in kafka topics to mimic how events would be received in dependency track that trigger vulnerability analysis task.
 
 ## Running the application in dev mode
 

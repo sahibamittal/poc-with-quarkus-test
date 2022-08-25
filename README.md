@@ -1,8 +1,6 @@
-# kafka-streams-snyk-analyzer Project
+# Dependency Track Kafka POC
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+Kafka POC on Dependency Track for the Vulnerability Analysis Task
 
 ## Running the application in dev mode
 
@@ -68,6 +66,4 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 You can then execute your native executable with: `./target/kafka-streams-snyk-analyzer-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
 
