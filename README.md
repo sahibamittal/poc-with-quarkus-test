@@ -6,6 +6,28 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 ## Running the application in dev mode
 
+To Start the kafka and zookeeper container, run the docker-compose.yml from the project root folder
+
+poc-with-quarkus-test/docker-compose up -d
+
+To Start individual, run the following command:
+./mvnw quarkus:dev -f <modulename>/pom.xml
+
+The producer application is listening for the post call on port 8080
+Send the POST message similar to below from Postman:
+{
+"eventType": 1,
+"project": "p1",
+"components": [
+"c1",
+"c2"
+]
+}
+
+
+url:http://localhost:8080/event
+
+
 You can run your application in dev mode that enables live coding using:
 ```shell script
 ./mvnw compile quarkus:dev
