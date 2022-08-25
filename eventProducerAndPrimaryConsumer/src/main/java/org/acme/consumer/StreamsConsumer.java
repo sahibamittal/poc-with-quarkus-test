@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.consumer;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -7,16 +7,12 @@ import io.quarkus.kafka.client.serialization.ObjectMapperSerde;
 
 import org.acme.model.EventData;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.ForeachAction;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.KStream;
-
-import java.util.Properties;
 
 @ApplicationScoped
 public class StreamsConsumer {
@@ -48,20 +44,20 @@ public class StreamsConsumer {
         });
         splittedStreams.to("event-out", Produced.with(Serdes.String(), Serdes.String()));
 
-       /* //sending event out
+        //sending event out
         KStream<String, String> streamRecv = builder.stream("event-out", Consumed.with(Serdes.String(), Serdes.String()));
         streamRecv.foreach(new ForeachAction<String, String>() {
             @Override
             public void apply(String s, String component) {
                 System.out.println("Printing from event-out topic");
-                *//*try {
+                /*try {
                     Thread.sleep(40000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }*//*
+                }*/
                 System.out.println(component);
             }
-        });*/
+        });
 
         return builder.build();
     }
