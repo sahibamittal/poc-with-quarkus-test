@@ -27,38 +27,40 @@ public class StreamsConsumer {
 
         //receiving the event
         KStream<String, EventData> kStream = builder.stream("event", Consumed.with(Serdes.String(), eventDataSerde));
-        KStream<String, String> splittedStreams = kStream.flatMapValues(value->value.getComponents());
+        KStream<String, String> splittedStreams = kStream.flatMapValues(value->value.getComponents()).selectKey((key, value) -> value);
 
 
         kStream.foreach(new ForeachAction<String, EventData>() {
             @Override
             public void apply(String s, EventData eventData) {
-                System.out.println("Printing from event-in topic");
+                System.out.println("Events from Producer Topic - event");
                 /*try {
                     Thread.sleep(40000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }*/
-                System.out.println(eventData.getProject());
+                System.out.println("Project Id - " + eventData.getProject());
+                System.out.println("Component Ids -");
+                eventData.getComponents().forEach(System.out::println);
             }
         });
         splittedStreams.to("event-out", Produced.with(Serdes.String(), Serdes.String()));
 
-        //sending event out
+        /*//sending event out
         KStream<String, String> streamRecv = builder.stream("event-out", Consumed.with(Serdes.String(), Serdes.String()));
         streamRecv.foreach(new ForeachAction<String, String>() {
             @Override
             public void apply(String s, String component) {
                 System.out.println("Printing from event-out topic");
-                /*try {
+                *//*try {
                     Thread.sleep(40000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }*/
+                }*//*
                 System.out.println(component);
             }
         });
-
+*/
         return builder.build();
     }
 
