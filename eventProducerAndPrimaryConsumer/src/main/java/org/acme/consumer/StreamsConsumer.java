@@ -25,8 +25,9 @@ public class StreamsConsumer {
         ObjectMapperSerde<EventData> eventDataSerde = new ObjectMapperSerde<>(
                 EventData.class);
 
-        //receiving the event
-        KStream<String, EventData> kStream = builder.stream("event", Consumed.with(Serdes.String(), eventDataSerde));
+        KStream<String, EventData> kStream = builder.stream("event", Consumed.with(Serdes.String(), eventDataSerde)); //receiving the message on topic event
+        //Splitting the incoming message into number of components
+        //Setting the message key same as the name of component to send messages on different partitions of topic event-out
         KStream<String, String> splittedStreams = kStream.flatMapValues(value->value.getComponents()).selectKey((key, value) -> value);
 
 
@@ -34,33 +35,14 @@ public class StreamsConsumer {
             @Override
             public void apply(String s, EventData eventData) {
                 System.out.println("Events from Producer Topic - event");
-                /*try {
-                    Thread.sleep(40000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }*/
                 System.out.println("Project Id - " + eventData.getProject());
                 System.out.println("Component Ids -");
                 eventData.getComponents().forEach(System.out::println);
             }
         });
+
         splittedStreams.to("event-out", Produced.with(Serdes.String(), Serdes.String()));
 
-        /*//sending event out
-        KStream<String, String> streamRecv = builder.stream("event-out", Consumed.with(Serdes.String(), Serdes.String()));
-        streamRecv.foreach(new ForeachAction<String, String>(){
-            @Override
-            public void apply(String s, String component) {
-                System.out.println("Printing from event-out topic");
-                *//*try {
-                    Thread.sleep(40000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }*//*
-                System.out.println(component);
-            }
-        });
-*/
         return builder.build();
     }
 
