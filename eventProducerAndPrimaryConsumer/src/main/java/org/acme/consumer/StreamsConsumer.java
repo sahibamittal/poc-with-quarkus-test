@@ -40,7 +40,7 @@ public class StreamsConsumer {
 
         //sending event out
         KStream<String, String> streamRecv = builder.stream("event-out", Consumed.with(Serdes.String(), Serdes.String()));
-        streamRecv.foreach(new ForeachAction<String, String>() {
+        streamRecv.foreach(new ForeachAction<String, String>(){
             @Override
             public void apply(String eventId, String componentName) {
                 System.out.println("Sending component - " + componentName + " to each analyser.");
