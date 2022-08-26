@@ -18,7 +18,8 @@ Send the POST message similar to below from Postman:
 "project": "p1",
 "components": [
 "c1",
-"c2"
+"c2",
+"c3"
 ]
 }
 
@@ -66,4 +67,8 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 You can then execute your native executable with: `./target/kafka-streams-snyk-analyzer-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+
+## Architecture
+
+![](/Users/sahibamittal/Desktop/poc.excalidraw.png)
 

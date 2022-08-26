@@ -18,7 +18,7 @@ public class ComponentAnalyzer {
         kStream.foreach(new ForeachAction<Integer, String>() {
             @Override
             public void apply(Integer eventId, String componentName) {
-                System.out.println("Got component in Snyk analyser from event Id: "+eventId+" which has component name: "+componentName);
+                System.out.println("Got component in OSV analyser from event Id: "+eventId+" which has component name: "+componentName);
             }
         });
         return builder.build();

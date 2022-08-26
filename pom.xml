@@ -9,5 +9,6 @@
   <modules>
     <module>eventProducerAndPrimaryConsumer</module>
     <module>kafka-streams-snyk-analyzer</module>
+    <module>kafka-streams-osv-analyzer</module>
   </modules>
 </project>
