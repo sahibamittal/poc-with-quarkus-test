@@ -42,6 +42,7 @@ public class StreamsConsumer {
         });
 
         splittedStreams.to("event-out", Produced.with(Serdes.String(), Serdes.String()));
+
         return builder.build();
     }
 
