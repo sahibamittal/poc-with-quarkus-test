@@ -17,8 +17,8 @@ public class ComponentAnalyzer {
         KStream<Integer, String> kStream = builder.stream("event-out", Consumed.with(Serdes.Integer(), Serdes.String()));
         kStream.foreach(new ForeachAction<Integer, String>() {
             @Override
-            public void apply(Integer eventId, String componentName) {
-                System.out.println("Got component from event Id: "+eventId+" which has component name: "+componentName);
+            public void apply(Integer componentId, String componentName) {
+                System.out.println("Got component from event Id: "+componentId+" which has component name: "+componentName);
             }
         });
         return builder.build();

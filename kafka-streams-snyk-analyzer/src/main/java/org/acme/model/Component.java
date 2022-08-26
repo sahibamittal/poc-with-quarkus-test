@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class Component {
     private String componentName;
-    private int eventId;
+    private int componentId;
 }
